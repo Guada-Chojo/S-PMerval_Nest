@@ -7,10 +7,10 @@ export declare class EmpresaService {
     private readonly cotizacionRepository;
     private logger;
     constructor(empresaRepository: Repository<Empresa>, cotizacionRepository: Repository<Cotizacion>);
-    getDetalleEmpresa(codigoEmpresa: string): Promise<any>;
     getAllEmpresas(): Promise<any>;
+    getUltimaCotizacion(codigoEmpresa: string): Promise<Cotizacion>;
     getLast20CotizacionEmpresa(empresaId: number): Promise<any>;
-    saveCotizacion(newCot: Cotizacion): Promise<Cotizacion>;
-    getCotizationFecha(codigoEmpresa: string, regFecha: RegistroFecha): Promise<Cotizacion>;
-    getCotizationesbyFechas(codigoEmpresa: string, fechaDesde: string, fechaHasta: string): Promise<Cotizacion[]>;
+    newCotizacion(newCot: Cotizacion): Promise<Cotizacion>;
+    getFechaCotization(codigoEmpresa: string, regFecha: RegistroFecha): Promise<Cotizacion>;
+    getCotizationesEntreFechas(codigoEmpresa: string, fechaDesde: string, fechaHasta: string): Promise<Cotizacion[]>;
 }

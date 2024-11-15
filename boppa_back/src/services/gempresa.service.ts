@@ -1,4 +1,6 @@
 import { Injectable } from "@nestjs/common";
+import axios, { AxiosResponse } from "axios";
+import { IEmpresa } from "src/empresa/model/IEmpresa";
 
 @Injectable()
 export class GempresaService {
@@ -10,13 +12,25 @@ export class GempresaService {
         return client;
     }
     public clientAxios = this.createClient();
-
-    async getEmpresaDetails (codigoEmpresa: string): Promise<IEmpresa>{
-        try{
-            const respuesta AxiosResponse<any, any> = await this.clientAxios.get(`/empresas/${codigoEmpresa}/details`);
+    
+    async getEmpresaDetails(codigoEmpresa: string): Promise<IEmpresa>{
+        try {
+            const respuesta: AxiosResponse<any, any> = await this.clientAxios.get(`/empresas/${codigoEmpresa}/details`);
             return respuesta.data;
-        } catch {
-            
+        } catch (error:any) {
+            return error.response.data.statusCode;
         }
     }
+
+    async getCotizaciones(codigoEmpresa:string, fechaDesde:string, fechaHasta:string){
+        try {
+            const respuesta: AxiosResponse<any, any> = await this.clientAxios.get(`/empresas/${codigoEmpresa}/cotizaciones`,
+                {params: {fechaDesde: fechaDesde, fechaHasta: fechaHasta} });
+            return respuesta.data;
+        } catch (error:any) {
+            return error.response.data.statusCode;
+        }
+    }
+
+
 }

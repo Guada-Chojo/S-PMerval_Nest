@@ -11,7 +11,7 @@ export class Empresa {
     name: 'codEmpresa',
     length: 100,
   })
-  public codempresa: string;
+  public codEmpresa: string;
 
   @Column({
     name: 'empresaNombre',
@@ -34,7 +34,7 @@ export class Empresa {
   public cantidadAcciones: number;
 
   constructor(codempresa: string, empresaNombre: string) {
-    this.codempresa = codempresa;
+    this.codEmpresa = codempresa;
     this.empresaNombre = empresaNombre;
   }
 
@@ -43,11 +43,11 @@ export class Empresa {
   }
 
   public getCodempresa(): string {
-    return this.codempresa;
+    return this.codEmpresa;
   }
 
   public setCodempresa(codempresa: string) {
-    this.codempresa = codempresa;
+    this.codEmpresa = codempresa;
   }
 
   public getEmpresaNombre(): string {

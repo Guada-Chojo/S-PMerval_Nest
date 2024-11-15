@@ -36,4 +36,17 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
         scale: 2,
     })
     public valorIndice: number;
+
+    @Column({
+        type: 'date',
+      })
+      public dateUTC: string;
+    
+      constructor(codigoIndice: string, valor:number, fecha: string, hora:string, dateUTC: string) {
+        this.codigoIndice = codigoIndice;
+        this.valorIndice = valor;
+        this.fecha = fecha;
+        this.hora = hora;
+        this.dateUTC = dateUTC;
+      }
  }

@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { EmpresaModule } from './empresa/empresa.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { IndiceModule } from './indice/indice.module';
+import { ScheduleModule } from '@nestjs/schedule';
+import { GenDataService } from './services/gendata.cron.service';
+import { GempresaService } from './services/gempresa.service';
 
 @Module({
   imports: [EmpresaModule, IndiceModule,
@@ -18,8 +21,11 @@ import { IndiceModule } from './indice/indice.module';
       entities: ['dist/**/*.entity.js'],
       logging: 'all',
     }),
+    EmpresaModule,
+    IndiceModule,
+    ScheduleModule.forRoot(),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, GenDataService, GempresaService],
 })
 export class AppModule {}

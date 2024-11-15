@@ -10,15 +10,17 @@ exports.IndiceModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const indice_entity_1 = require("./entities/indice.entity");
+const cotizacion_entity_1 = require("../empresa/entities/cotizacion.entity");
+const indice_service_1 = require("./indice.service");
 let IndiceModule = class IndiceModule {
 };
 exports.IndiceModule = IndiceModule;
 exports.IndiceModule = IndiceModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([indice_entity_1.Indice])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([indice_entity_1.Indice, cotizacion_entity_1.Cotizacion])],
         controllers: [],
-        providers: [],
-        exports: [],
+        providers: [indice_service_1.IndiceService],
+        exports: [indice_service_1.IndiceService]
     })
 ], IndiceModule);
 //# sourceMappingURL=indice.module.js.map

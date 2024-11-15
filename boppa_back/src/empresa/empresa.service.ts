@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Between, FindOptionsWhere, Repository } from 'typeorm';
+import { Between, FindManyOptions, FindOptionsWhere, Repository } from 'typeorm';
 import { Empresa } from './entities/empresa.entity';
 import { Cotizacion } from './entities/cotizacion.entity';
 import { RegistroFecha } from 'src/model/registro.fecha';
@@ -16,33 +16,6 @@ export class EmpresaService {
     private readonly cotizacionRepository: Repository<Cotizacion>,
   ) {}
 
-  async getDetalleEmpresa(codigoEmpresa: string): Promise<any> {
-    try {
-      const criterio: FindOptionsWhere<Empresa> = {
-        codempresa: codigoEmpresa,
-      };
-      const empresaResponse: Empresa =
-        await this.empresaRepository.findOneBy(criterio);
-      if (!empresaResponse) {
-        throw new HttpException(
-          {
-            status: HttpStatus.NOT_FOUND,
-            error: 'Error la empresa ' + codigoEmpresa + ' : no se encuentra',
-          },
-          HttpStatus.NOT_FOUND,
-        );
-      }
-      return empresaResponse;
-    } catch (error) {
-      throw new HttpException(
-        {
-          status: HttpStatus.NOT_FOUND,
-          error: 'Error la empresa ' + codigoEmpresa + ' : no se encuentra',
-        },
-        HttpStatus.NOT_FOUND,
-      );
-    }
-  }
 
   async getAllEmpresas(): Promise<any> {
     try {
@@ -52,6 +25,20 @@ export class EmpresaService {
       this.logger.error(error);
     }
     return [];
+  }
+
+  async getUltimaCotizacion (codigoEmpresa: string): Promise<Cotizacion> {
+    const criterio: FindManyOptions<Cotizacion> = { 
+      where: {empresa : {codEmpresa : codigoEmpresa}},
+      order: {
+          dateUTC: "DESC",
+          hora: "DESC"
+      },
+      take: 1,
+   };
+
+    const ultCotizacion = await this.cotizacionRepository.find(criterio);
+    return ultCotizacion[0];
   }
 
   async getLast20CotizacionEmpresa(empresaId: number) {
@@ -65,17 +52,17 @@ export class EmpresaService {
     return [];
   }
 
-  async saveCotizacion(newCot: Cotizacion): Promise<Cotizacion> {
+  async newCotizacion(newCot: Cotizacion): Promise<Cotizacion> {
     return await this.cotizacionRepository.save(newCot);
   }
 
-  async getCotizationFecha(
+  async getFechaCotization(
     codigoEmpresa: string,
     regFecha: RegistroFecha,
   ): Promise<Cotizacion> {
     const criterio: FindOptionsWhere<Cotizacion> = {
       empresa: {
-        codempresa: codigoEmpresa,
+        codEmpresa: codigoEmpresa,
       },
       fecha: regFecha.fecha,
       hora: regFecha.hora,
@@ -101,7 +88,7 @@ export class EmpresaService {
     );
   }
 
-  async getCotizationesbyFechas(
+  async getCotizationesEntreFechas(
     codigoEmpresa: string,
     fechaDesde: string,
     fechaHasta: string,
@@ -110,7 +97,7 @@ export class EmpresaService {
     const fechaHastaArray = fechaHasta.split('T');
     const criterio: FindOptionsWhere<Cotizacion> = {
       empresa: {
-        codempresa: codigoEmpresa,
+        codEmpresa: codigoEmpresa,
       },
       dateUTC: Between(fechaDesdeArray[0], fechaHastaArray[0]),
     };

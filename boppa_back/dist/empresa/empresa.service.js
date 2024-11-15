@@ -25,27 +25,6 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
         this.cotizacionRepository = cotizacionRepository;
         this.logger = new common_1.Logger(EmpresaService_1.name);
     }
-    async getDetalleEmpresa(codigoEmpresa) {
-        try {
-            const criterio = {
-                codempresa: codigoEmpresa,
-            };
-            const empresaResponse = await this.empresaRepository.findOneBy(criterio);
-            if (!empresaResponse) {
-                throw new common_1.HttpException({
-                    status: common_1.HttpStatus.NOT_FOUND,
-                    error: 'Error la empresa ' + codigoEmpresa + ' : no se encuentra',
-                }, common_1.HttpStatus.NOT_FOUND);
-            }
-            return empresaResponse;
-        }
-        catch (error) {
-            throw new common_1.HttpException({
-                status: common_1.HttpStatus.NOT_FOUND,
-                error: 'Error la empresa ' + codigoEmpresa + ' : no se encuentra',
-            }, common_1.HttpStatus.NOT_FOUND);
-        }
-    }
     async getAllEmpresas() {
         try {
             const empresaResponse = await this.empresaRepository.find();
@@ -55,6 +34,18 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
             this.logger.error(error);
         }
         return [];
+    }
+    async getUltimaCotizacion(codigoEmpresa) {
+        const criterio = {
+            where: { empresa: { codEmpresa: codigoEmpresa } },
+            order: {
+                dateUTC: "DESC",
+                hora: "DESC"
+            },
+            take: 1,
+        };
+        const ultCotizacion = await this.cotizacionRepository.find(criterio);
+        return ultCotizacion[0];
     }
     async getLast20CotizacionEmpresa(empresaId) {
         try {
@@ -67,13 +58,13 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
         }
         return [];
     }
-    async saveCotizacion(newCot) {
+    async newCotizacion(newCot) {
         return await this.cotizacionRepository.save(newCot);
     }
-    async getCotizationFecha(codigoEmpresa, regFecha) {
+    async getFechaCotization(codigoEmpresa, regFecha) {
         const criterio = {
             empresa: {
-                codempresa: codigoEmpresa,
+                codEmpresa: codigoEmpresa,
             },
             fecha: regFecha.fecha,
             hora: regFecha.hora,
@@ -92,12 +83,12 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
                 regFecha.hora,
         }, common_1.HttpStatus.NOT_FOUND);
     }
-    async getCotizationesbyFechas(codigoEmpresa, fechaDesde, fechaHasta) {
+    async getCotizationesEntreFechas(codigoEmpresa, fechaDesde, fechaHasta) {
         const fechaDesdeArray = fechaDesde.split('T');
         const fechaHastaArray = fechaHasta.split('T');
         const criterio = {
             empresa: {
-                codempresa: codigoEmpresa,
+                codEmpresa: codigoEmpresa,
             },
             dateUTC: (0, typeorm_2.Between)(fechaDesdeArray[0], fechaHastaArray[0]),
         };
