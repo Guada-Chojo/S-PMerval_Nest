@@ -41,9 +41,20 @@ export class EmpresaService {
     return ultCotizacion[0];
   }
 
-  async getLast20CotizacionEmpresa(empresaId: number) {
+  async getHoraDiaCotizacionEmpresa(empresaId: number) {
     try {
-      const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 20`;
+      const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 7`;
+      const response = await this.cotizacionRepository.query(sql);
+      return response;
+    } catch (error) {
+      this.logger.error(error);
+    }
+    return [];
+  }
+
+  async getDiaMesCotizacionEmpresa(empresaId: number) {
+    try {
+      const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 24`;
       const response = await this.cotizacionRepository.query(sql);
       return response;
     } catch (error) {
@@ -54,38 +65,6 @@ export class EmpresaService {
 
   async newCotizacion(newCot: Cotizacion): Promise<Cotizacion> {
     return await this.cotizacionRepository.save(newCot);
-  }
-
-  async getFechaCotization(
-    codigoEmpresa: string,
-    regFecha: RegistroFecha,
-  ): Promise<Cotizacion> {
-    const criterio: FindOptionsWhere<Cotizacion> = {
-      empresa: {
-        codEmpresa: codigoEmpresa,
-      },
-      fecha: regFecha.fecha,
-      hora: regFecha.hora,
-    };
-    const cotizacion: Cotizacion =
-      await this.cotizacionRepository.findOneBy(criterio);
-
-    if (cotizacion) {
-      return cotizacion;
-    }
-    throw new HttpException(
-      {
-        status: HttpStatus.NOT_FOUND,
-        error:
-          'No se encuentra cotizacion para ' +
-          codigoEmpresa +
-          ' ' +
-          regFecha.fecha +
-          ' ' +
-          regFecha.hora,
-      },
-      HttpStatus.NOT_FOUND,
-    );
   }
 
   async getCotizationesEntreFechas(

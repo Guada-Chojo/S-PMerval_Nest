@@ -12,13 +12,14 @@ const typeorm_1 = require("@nestjs/typeorm");
 const indice_entity_1 = require("./entities/indice.entity");
 const cotizacion_entity_1 = require("../empresa/entities/cotizacion.entity");
 const indice_service_1 = require("./indice.service");
+const indice_controller_1 = require("./indice.controller");
 let IndiceModule = class IndiceModule {
 };
 exports.IndiceModule = IndiceModule;
 exports.IndiceModule = IndiceModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([indice_entity_1.Indice, cotizacion_entity_1.Cotizacion])],
-        controllers: [],
+        controllers: [indice_controller_1.IndiceController],
         providers: [indice_service_1.IndiceService],
         exports: [indice_service_1.IndiceService]
     })

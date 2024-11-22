@@ -1,6 +1,6 @@
 export declare class Empresa {
     id: number;
-    codempresa: string;
+    codEmpresa: string;
     empresaNombre: string;
     cotizationInicial: number;
     cantidadAcciones: number;

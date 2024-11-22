@@ -27,6 +27,12 @@ let EmpresaController = class EmpresaController {
     async getUltimaCotizacion(codigoEmpresa) {
         return await this.empresaService.getUltimaCotizacion(codigoEmpresa);
     }
+    async getHoraDiaCotizacionEmpresa(idEmpresa) {
+        return await this.empresaService.getHoraDiaCotizacionEmpresa(idEmpresa);
+    }
+    async getDiaMesCotizacionEmpresa(idEmpresa) {
+        return await this.empresaService.getDiaMesCotizacionEmpresa(idEmpresa);
+    }
 };
 exports.EmpresaController = EmpresaController;
 __decorate([
@@ -43,6 +49,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], EmpresaController.prototype, "getUltimaCotizacion", null);
+__decorate([
+    (0, common_1.Get)('/:codigoEmpresa/horaDia'),
+    __param(0, (0, common_1.Param)('codigoEmpresa')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], EmpresaController.prototype, "getHoraDiaCotizacionEmpresa", null);
+__decorate([
+    (0, common_1.Get)('/:codigoEmpresa/diaMes'),
+    __param(0, (0, common_1.Param)('codigoEmpresa')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Number]),
+    __metadata("design:returntype", Promise)
+], EmpresaController.prototype, "getDiaMesCotizacionEmpresa", null);
 exports.EmpresaController = EmpresaController = __decorate([
     (0, common_1.Controller)('empresas'),
     __metadata("design:paramtypes", [empresa_service_1.EmpresaService, gempresa_service_1.GempresaService])

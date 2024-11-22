@@ -13,17 +13,17 @@ exports.Empresa = void 0;
 const typeorm_1 = require("typeorm");
 let Empresa = class Empresa {
     constructor(codempresa, empresaNombre) {
-        this.codempresa = codempresa;
+        this.codEmpresa = codempresa;
         this.empresaNombre = empresaNombre;
     }
     getId() {
         return this.id;
     }
     getCodempresa() {
-        return this.codempresa;
+        return this.codEmpresa;
     }
     setCodempresa(codempresa) {
-        this.codempresa = codempresa;
+        this.codEmpresa = codempresa;
     }
     getEmpresaNombre() {
         return this.empresaNombre;
@@ -51,7 +51,7 @@ __decorate([
         length: 100,
     }),
     __metadata("design:type", String)
-], Empresa.prototype, "codempresa", void 0);
+], Empresa.prototype, "codEmpresa", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         name: 'empresaNombre',

@@ -47,9 +47,20 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
         const ultCotizacion = await this.cotizacionRepository.find(criterio);
         return ultCotizacion[0];
     }
-    async getLast20CotizacionEmpresa(empresaId) {
+    async getHoraDiaCotizacionEmpresa(empresaId) {
         try {
-            const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 20`;
+            const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 7`;
+            const response = await this.cotizacionRepository.query(sql);
+            return response;
+        }
+        catch (error) {
+            this.logger.error(error);
+        }
+        return [];
+    }
+    async getDiaMesCotizacionEmpresa(empresaId) {
+        try {
+            const sql = `select * from cotizaciones where idEmpresa = ${empresaId} order by dateUTC desc, hora desc limit 24`;
             const response = await this.cotizacionRepository.query(sql);
             return response;
         }
@@ -60,28 +71,6 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
     }
     async newCotizacion(newCot) {
         return await this.cotizacionRepository.save(newCot);
-    }
-    async getFechaCotization(codigoEmpresa, regFecha) {
-        const criterio = {
-            empresa: {
-                codEmpresa: codigoEmpresa,
-            },
-            fecha: regFecha.fecha,
-            hora: regFecha.hora,
-        };
-        const cotizacion = await this.cotizacionRepository.findOneBy(criterio);
-        if (cotizacion) {
-            return cotizacion;
-        }
-        throw new common_1.HttpException({
-            status: common_1.HttpStatus.NOT_FOUND,
-            error: 'No se encuentra cotizacion para ' +
-                codigoEmpresa +
-                ' ' +
-                regFecha.fecha +
-                ' ' +
-                regFecha.hora,
-        }, common_1.HttpStatus.NOT_FOUND);
     }
     async getCotizationesEntreFechas(codigoEmpresa, fechaDesde, fechaHasta) {
         const fechaDesdeArray = fechaDesde.split('T');

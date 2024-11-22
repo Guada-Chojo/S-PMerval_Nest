@@ -6,4 +6,6 @@ export declare class EmpresaController {
     constructor(empresaService: EmpresaService, gempresaService: GempresaService);
     getDetalleEmpresa(codigoEmpresa: string): Promise<any>;
     getUltimaCotizacion(codigoEmpresa: string): Promise<any>;
+    getHoraDiaCotizacionEmpresa(idEmpresa: number): Promise<any>;
+    getDiaMesCotizacionEmpresa(idEmpresa: number): Promise<any>;
 }

@@ -30,7 +30,7 @@ let GenDataService = GenDataService_1 = class GenDataService {
     async obtenerDatosEmpresas() {
         const empresas = await this.empresaService.getAllEmpresas();
         empresas.forEach(async (empresa) => {
-            let ultimaCot = await this.empresaService.getUltimaCotizacion(empresa.codempresa);
+            let ultimaCot = await this.empresaService.getUltimaCotizacion(empresa.codEmpresa);
             if (!ultimaCot) {
                 ultimaCot = {
                     cotization: Number(empresa.cotizationInicial),
@@ -44,7 +44,7 @@ let GenDataService = GenDataService_1 = class GenDataService {
             ultimaCot.dateUTC = (dateUtils_1.default.agregarUnaHora(dateUtils_1.default.getFechaFromRegistroFecha({ fecha: ultimaCot.fecha, hora: ultimaCot.hora }))).toISOString().substring(0, 16);
             const fechaDesde = ultimaCot.dateUTC;
             const fechaHasta = (new Date()).toISOString().substring(0, 16);
-            const cotizaciones = await this.gempresaService.getCotizaciones(empresa.codempresa, fechaDesde, fechaHasta);
+            const cotizaciones = await this.gempresaService.getCotizaciones(empresa.codEmpresa, fechaDesde, fechaHasta);
             const cotizacionesValidas = cotizaciones.filter((cot) => {
                 let validoDia = true;
                 let validoHora = true;
@@ -72,13 +72,13 @@ let GenDataService = GenDataService_1 = class GenDataService {
     obtenerDatosHora() {
         this.logger.log('Obtener datos empresas iniciado');
         this.obtenerDatosEmpresas();
-        this.logger.log('Generar Indice iniciado ');
-        this.indiceService.createIndices();
     }
 };
 exports.GenDataService = GenDataService;
 __decorate([
-    (0, schedule_1.Cron)('0 59 * * * *'),
+    (0, schedule_1.Cron)('0 43 * * * *', {
+        timeZone: 'America/Buenos_Aires',
+    }),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)

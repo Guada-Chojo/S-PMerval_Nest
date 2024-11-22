@@ -27,4 +27,18 @@ export class EmpresaController {
   ): Promise<any> {
     return await this.empresaService.getUltimaCotizacion(codigoEmpresa);
   }
+
+  @Get('/:codigoEmpresa/horaDia')
+  async getHoraDiaCotizacionEmpresa(
+    @Param('codigoEmpresa') idEmpresa: number,
+  ): Promise<any> {
+    return await this.empresaService.getHoraDiaCotizacionEmpresa(idEmpresa);
+  }
+
+  @Get('/:codigoEmpresa/diaMes')
+  async getDiaMesCotizacionEmpresa(
+    @Param('codigoEmpresa') idEmpresa: number,
+  ): Promise<any> {
+    return await this.empresaService.getDiaMesCotizacionEmpresa(idEmpresa);
+  }
 }

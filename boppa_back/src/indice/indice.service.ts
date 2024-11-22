@@ -35,7 +35,7 @@ export class IndiceService {
     }
 
     //Calculo los indices faltantes
-    const sql: string = `select 'N100' codigoIndice,avg(c.cotization)as valor, c.dateUTC ,c.fecha ,c.hora from cotizaciones c  where fecha > '${fechaUltIndice}' group by c.dateUTC ,c.fecha , c.hora order by c.dateUTC,c.fecha,c.hora`
+    const sql: string = `select 'IMV' codigoIndice,avg(c.cotization)as valor, c.dateUTC ,c.fecha ,c.hora from cotizaciones c  where fecha > '${fechaUltIndice}' group by c.dateUTC ,c.fecha , c.hora order by c.dateUTC,c.fecha,c.hora`
     const indices: Indice[] = await this.cotizacionRepository.query(sql);
 
     //Inserto los indices en la tabla y lo envio a Gempresa

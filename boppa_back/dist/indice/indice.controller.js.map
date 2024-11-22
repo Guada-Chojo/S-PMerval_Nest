@@ -1,1 +1,1 @@
-{"version":3,"file":"indice.controller.js","sourceRoot":"","sources":["../../src/indice/indice.controller.ts"],"names":[],"mappings":""}
+{"version":3,"file":"indice.controller.js","sourceRoot":"","sources":["../../src/indice/indice.controller.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,2CAAiD;AACjD,qDAAiD;AAG1C,IAAM,gBAAgB,GAAtB,MAAM,gBAAgB;IAC3B,YAA6B,aAA4B;QAA5B,kBAAa,GAAb,aAAa,CAAe;IAAG,CAAC;CAG9D,CAAA;AAJY,4CAAgB;2BAAhB,gBAAgB;IAD5B,IAAA,mBAAU,EAAC,SAAS,CAAC;qCAEwB,8BAAa;GAD9C,gBAAgB,CAI5B"}
