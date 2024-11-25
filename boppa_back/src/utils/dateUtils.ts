@@ -1,4 +1,4 @@
-import { RegistroFecha } from "src/model/registro.fecha";
+import { RegistroFecha } from '../model/registro.fecha';
 
 class DateUtils {
   static getFechaFromRegistroFecha(fecha: RegistroFecha): Date {

@@ -1,5 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Cotizacion } from './cotizacion.entity';
 @Entity('empresas')
 export class Empresa {
   @PrimaryGeneratedColumn({
@@ -25,44 +25,56 @@ export class Empresa {
     precision: 7,
     scale: 2,
   })
-  public cotizationInicial: number;
+  public cotizacionInicial: number;
 
   @Column({
     name: 'cantidadAcciones',
     type: 'bigint',
+    nullable: false,
   })
   public cantidadAcciones: number;
 
-  constructor(codempresa: string, empresaNombre: string) {
-    this.codEmpresa = codempresa;
-    this.empresaNombre = empresaNombre;
+  @OneToMany(() => Cotizacion, (cotizacion) => cotizacion.empresa)
+  public cotizaciones: Cotizacion[];
+
+  constructor(codigo:string, nombre: string) {
+    this.codEmpresa = codigo;
+    this.empresaNombre = nombre;
   }
 
-  public getId(): number {
+  public getIdEmpresa():number {
     return this.id;
   }
 
-  public getCodempresa(): string {
+  public getCodigoEmpresa():string {
     return this.codEmpresa;
   }
 
-  public setCodempresa(codempresa: string) {
-    this.codEmpresa = codempresa;
+  public setCodigoEmpresa(codigo:string):void {
+    this.codEmpresa = codigo;
   }
 
-  public getEmpresaNombre(): string {
+  public getNombreEmpresa():string {
     return this.empresaNombre;
   }
 
-  public setEmpresaNombre(empresaNombre: string) {
-    this.empresaNombre = empresaNombre;
+  public setNombreEmpresa(nombre:string):void {
+    this.empresaNombre = nombre;
   }
 
-  public getCotizacionInicial(): number {
-    return this.cotizationInicial;
-  }
-
-  public getCantidadAcciones(): number {
+  public getCantAcciones():number {
     return this.cantidadAcciones;
+  }
+
+  public setCantAcciones(cantAcciones:number):void {
+    this.cantidadAcciones = cantAcciones;
+  }
+
+  public getCotizacionInicial():number {
+    return this.cotizacionInicial;
+  }
+
+  public setCotizacionInicial(cotizacionInicial:number):void {
+    this.cotizacionInicial = cotizacionInicial;
   }
 }
