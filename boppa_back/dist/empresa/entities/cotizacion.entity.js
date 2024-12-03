@@ -13,7 +13,12 @@ exports.Cotizacion = void 0;
 const typeorm_1 = require("typeorm");
 const empresa_entity_1 = require("./empresa.entity");
 let Cotizacion = class Cotizacion {
-    constructor() { }
+    constructor(fecha, hora, dateUTC, cotizacion) {
+        this.fecha = fecha;
+        this.hora = hora;
+        this.dateUTC = dateUTC;
+        this.cotization = cotizacion;
+    }
 };
 exports.Cotizacion = Cotizacion;
 __decorate([
@@ -54,15 +59,11 @@ __decorate([
     __metadata("design:type", Number)
 ], Cotizacion.prototype, "cotization", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => empresa_entity_1.Empresa),
-    (0, typeorm_1.JoinColumn)({
-        name: 'idEmpresa',
-        referencedColumnName: 'id',
-    }),
+    (0, typeorm_1.ManyToOne)(() => empresa_entity_1.Empresa, (empresa) => empresa.cotizaciones),
     __metadata("design:type", empresa_entity_1.Empresa)
 ], Cotizacion.prototype, "empresa", void 0);
 exports.Cotizacion = Cotizacion = __decorate([
     (0, typeorm_1.Entity)('cotizaciones'),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [String, String, String, Number])
 ], Cotizacion);
 //# sourceMappingURL=cotizacion.entity.js.map

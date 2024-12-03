@@ -18,7 +18,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
     @Column({
         name: 'hora',
         type: 'varchar',
-        precision: 5,
+        precision: 15,
     })
     public hora: string;
 
@@ -32,21 +32,15 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
     @Column({
         name: 'valorIndice',
         type: 'decimal',
-        precision: 7,
+        precision: 15,
         scale: 2,
     })
     public valorIndice: number;
-
-    @Column({
-        type: 'date',
-      })
-      public dateUTC: string;
     
-      constructor(codigoIndice: string, valor:number, fecha: string, hora:string, dateUTC: string) {
+      constructor(codigoIndice: string, valor:number, fecha: string, hora:string) {
         this.codigoIndice = codigoIndice;
         this.valorIndice = valor;
         this.fecha = fecha;
         this.hora = hora;
-        this.dateUTC = dateUTC;
       }
  }

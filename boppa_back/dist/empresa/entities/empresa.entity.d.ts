@@ -1,15 +1,19 @@
+import { Cotizacion } from './cotizacion.entity';
 export declare class Empresa {
-    id: number;
+    idEmpresa: number;
     codEmpresa: string;
     empresaNombre: string;
-    cotizationInicial: number;
+    cotizacionInicial: number;
     cantidadAcciones: number;
-    constructor(codempresa: string, empresaNombre: string);
-    getId(): number;
-    getCodempresa(): string;
-    setCodempresa(codempresa: string): void;
-    getEmpresaNombre(): string;
-    setEmpresaNombre(empresaNombre: string): void;
+    cotizaciones: Cotizacion[];
+    constructor(codigo: string, nombre: string);
+    getIdEmpresa(): number;
+    getCodigoEmpresa(): string;
+    setCodigoEmpresa(codigo: string): void;
+    getNombreEmpresa(): string;
+    setNombreEmpresa(nombre: string): void;
+    getCantAcciones(): number;
+    setCantAcciones(cantAcciones: number): void;
     getCotizacionInicial(): number;
-    getCantidadAcciones(): number;
+    setCotizacionInicial(cotizacionInicial: number): void;
 }

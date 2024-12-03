@@ -6,5 +6,5 @@ export declare class Cotizacion {
     dateUTC: string;
     cotization: number;
     empresa: Empresa;
-    constructor();
+    constructor(fecha: string, hora: string, dateUTC: string, cotizacion: number);
 }

@@ -11,31 +11,38 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Empresa = void 0;
 const typeorm_1 = require("typeorm");
+const cotizacion_entity_1 = require("./cotizacion.entity");
 let Empresa = class Empresa {
-    constructor(codempresa, empresaNombre) {
-        this.codEmpresa = codempresa;
-        this.empresaNombre = empresaNombre;
+    constructor(codigo, nombre) {
+        this.codEmpresa = codigo;
+        this.empresaNombre = nombre;
     }
-    getId() {
-        return this.id;
+    getIdEmpresa() {
+        return this.idEmpresa;
     }
-    getCodempresa() {
+    getCodigoEmpresa() {
         return this.codEmpresa;
     }
-    setCodempresa(codempresa) {
-        this.codEmpresa = codempresa;
+    setCodigoEmpresa(codigo) {
+        this.codEmpresa = codigo;
     }
-    getEmpresaNombre() {
+    getNombreEmpresa() {
         return this.empresaNombre;
     }
-    setEmpresaNombre(empresaNombre) {
-        this.empresaNombre = empresaNombre;
+    setNombreEmpresa(nombre) {
+        this.empresaNombre = nombre;
+    }
+    getCantAcciones() {
+        return this.cantidadAcciones;
+    }
+    setCantAcciones(cantAcciones) {
+        this.cantidadAcciones = cantAcciones;
     }
     getCotizacionInicial() {
-        return this.cotizationInicial;
+        return this.cotizacionInicial;
     }
-    getCantidadAcciones() {
-        return this.cantidadAcciones;
+    setCotizacionInicial(cotizacionInicial) {
+        this.cotizacionInicial = cotizacionInicial;
     }
 };
 exports.Empresa = Empresa;
@@ -44,7 +51,7 @@ __decorate([
         type: 'int',
     }),
     __metadata("design:type", Number)
-], Empresa.prototype, "id", void 0);
+], Empresa.prototype, "idEmpresa", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         name: 'codEmpresa',
@@ -67,14 +74,19 @@ __decorate([
         scale: 2,
     }),
     __metadata("design:type", Number)
-], Empresa.prototype, "cotizationInicial", void 0);
+], Empresa.prototype, "cotizacionInicial", void 0);
 __decorate([
     (0, typeorm_1.Column)({
         name: 'cantidadAcciones',
         type: 'bigint',
+        nullable: false,
     }),
     __metadata("design:type", Number)
 ], Empresa.prototype, "cantidadAcciones", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cotizacion_entity_1.Cotizacion, (cotizacion) => cotizacion.empresa),
+    __metadata("design:type", Array)
+], Empresa.prototype, "cotizaciones", void 0);
 exports.Empresa = Empresa = __decorate([
     (0, typeorm_1.Entity)('empresas'),
     __metadata("design:paramtypes", [String, String])

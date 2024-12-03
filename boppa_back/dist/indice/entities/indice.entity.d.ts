@@ -4,6 +4,5 @@ export declare class Indice {
     hora: string;
     codigoIndice: string;
     valorIndice: number;
-    dateUTC: string;
-    constructor(codigoIndice: string, valor: number, fecha: string, hora: string, dateUTC: string);
+    constructor(codigoIndice: string, valor: number, fecha: string, hora: string);
 }

@@ -13,6 +13,7 @@ const indice_entity_1 = require("./entities/indice.entity");
 const cotizacion_entity_1 = require("../empresa/entities/cotizacion.entity");
 const indice_service_1 = require("./indice.service");
 const indice_controller_1 = require("./indice.controller");
+const gempresa_service_1 = require("../services/gempresa.service");
 let IndiceModule = class IndiceModule {
 };
 exports.IndiceModule = IndiceModule;
@@ -20,7 +21,7 @@ exports.IndiceModule = IndiceModule = __decorate([
     (0, common_1.Module)({
         imports: [typeorm_1.TypeOrmModule.forFeature([indice_entity_1.Indice, cotizacion_entity_1.Cotizacion])],
         controllers: [indice_controller_1.IndiceController],
-        providers: [indice_service_1.IndiceService],
+        providers: [indice_service_1.IndiceService, gempresa_service_1.GempresaService],
         exports: [indice_service_1.IndiceService]
     })
 ], IndiceModule);

@@ -12,12 +12,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Indice = void 0;
 const typeorm_1 = require("typeorm");
 let Indice = class Indice {
-    constructor(codigoIndice, valor, fecha, hora, dateUTC) {
+    constructor(codigoIndice, valor, fecha, hora) {
         this.codigoIndice = codigoIndice;
         this.valorIndice = valor;
         this.fecha = fecha;
         this.hora = hora;
-        this.dateUTC = dateUTC;
     }
 };
 exports.Indice = Indice;
@@ -39,7 +38,7 @@ __decorate([
     (0, typeorm_1.Column)({
         name: 'hora',
         type: 'varchar',
-        precision: 5,
+        precision: 15,
     }),
     __metadata("design:type", String)
 ], Indice.prototype, "hora", void 0);
@@ -55,19 +54,13 @@ __decorate([
     (0, typeorm_1.Column)({
         name: 'valorIndice',
         type: 'decimal',
-        precision: 7,
+        precision: 15,
         scale: 2,
     }),
     __metadata("design:type", Number)
 ], Indice.prototype, "valorIndice", void 0);
-__decorate([
-    (0, typeorm_1.Column)({
-        type: 'date',
-    }),
-    __metadata("design:type", String)
-], Indice.prototype, "dateUTC", void 0);
 exports.Indice = Indice = __decorate([
     (0, typeorm_1.Entity)(),
-    __metadata("design:paramtypes", [String, Number, String, String, String])
+    __metadata("design:paramtypes", [String, Number, String, String])
 ], Indice);
 //# sourceMappingURL=indice.entity.js.map

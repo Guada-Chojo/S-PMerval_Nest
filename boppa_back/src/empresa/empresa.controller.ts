@@ -28,31 +28,22 @@ export class EmpresaController {
     return await this.gempresaService.getEmpresaDetails(codigoEmpresa);
   }
 
+  @Get('/participacionEmpresas')
+  async getParticipacionEmpresas(): Promise<any[]> {
+    return await this.empresaService.participacionEmpresas();
+  }
+
   //Trae los datos de todas las empresas, sus cotizaciones actuales y la variacion
-  @Get('/ultimasCotizaciones')
-  async getUltCotizaciones(): Promise<any[]> {
+  @Get('/cotizacionActual')
+  async getCotizacionActual(): Promise<any[]> {
     return await this.empresaService.cotizacionActual();
   }
 
-
-  @Get('/:codigoEmpresa/ultima')
-  async getUltimaCotizacion(
+  @Get('/ultimasCotizaciones/:codigoEmpresa')
+  async getUltCotizaciones(
     @Param('codigoEmpresa') codigoEmpresa: string,
-  ): Promise<any> {
-    return await this.empresaService.getUltimaCotizacion(codigoEmpresa);
-  }
-
-  @Get('/:codigoEmpresa/horaDia')
-  async getHoraDiaCotizacionEmpresa(
-    @Param('codigoEmpresa') idEmpresa: number,
-  ): Promise<any> {
-    return await this.empresaService.getHoraDiaCotizacionEmpresa(idEmpresa);
-  }
-
-  @Get('/:codigoEmpresa/diaMes')
-  async getDiaMesCotizacionEmpresa(
-    @Param('codigoEmpresa') idEmpresa: number,
-  ): Promise<any> {
-    return await this.empresaService.getDiaMesCotizacionEmpresa(idEmpresa);
+    @Query('dias') dias: number,
+  ): Promise<any[]> {
+    return await this.empresaService.getDatosGrafico(codigoEmpresa,dias);
   }
 }

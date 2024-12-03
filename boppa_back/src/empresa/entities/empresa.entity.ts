@@ -5,7 +5,7 @@ export class Empresa {
   @PrimaryGeneratedColumn({
     type: 'int',
   })
-  public id: number;
+  public idEmpresa: number;
 
   @Column({
     name: 'codEmpresa',
@@ -43,7 +43,7 @@ export class Empresa {
   }
 
   public getIdEmpresa():number {
-    return this.id;
+    return this.idEmpresa;
   }
 
   public getCodigoEmpresa():string {
