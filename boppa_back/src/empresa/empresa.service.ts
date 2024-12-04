@@ -57,9 +57,7 @@ export class EmpresaService {
     }
   }
 
-   /**
-   * Obtengo las cotizaciones de todas las empresas de la bolsa de Gempresa
-   */
+   // Obtengo las cotizaciones de todas las empresas de la bolsa de Gempresa
    async obtenerDatosEmpresas() {
     //Traigo todas las empresas
     const empresas: Empresa[] = await this.getAllEmpresas();
@@ -122,9 +120,7 @@ export class EmpresaService {
     });
   }
 
-  /**
-   * Funcion que retorna las ultimas cotizaciones de cada empresa y la variacion diaria
-   */
+  // Pido las ultimas cotizaciones de cada empresa y la variacion diaria
   async cotizacionActual(): Promise<any[]> {
     //Busco todas las empresas de la bolsa
     const empresas: Empresa[] = await this.getAllEmpresas();
@@ -157,13 +153,7 @@ export class EmpresaService {
   }
 
 
-     /**
-   * Función que obtiene las cotizaciones de una empresa en un rango de fechas y horas dados
-   * @param codigoEmpresa 
-   * @param fechaDesde 
-   * @param fechaHasta 
-   * @returns 
-   */
+// Obtengo las cotizaciones de una empresa en un rango de fechas y horas dados
   async getCotizacionesByFecha(codigoEmpresa: string,
     fechaDesde: string,
     fechaHasta: string,
@@ -207,11 +197,7 @@ export class EmpresaService {
     }
   }
 
-  /**
-   * Función que obtiene los datos para cargar el grafico, segun cantidad de días a mostrar y la empresa seleccionada
-   * @param criterio 
-   * @returns 
-   */
+  // Obtengo los datos para cargar el grafico, segun cantidad de días a mostrar y la empresa seleccionad
   async getDatosGrafico(codEmpresa: string,dias: number) {
     const fechaDesde = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').add(-dias, 'days').toISOString().substring(0, 16);
     const fechaHasta = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').toISOString().substring(0, 16);
@@ -222,9 +208,7 @@ export class EmpresaService {
     return datos;
   }
 
-  /**
-   * Funcion que calcula la participacion de cada empresa en la bolsa
-   */
+  // Calculo la participacion de cada empresa en la bolsa 
   async participacionEmpresas(){
     const empresas: Empresa[] = await this.getAllEmpresas();
 

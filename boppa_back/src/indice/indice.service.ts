@@ -85,9 +85,7 @@ export class IndiceService {
   }
 
 
-  /**
-   *Obtengo de Gempresa los indices de las demas bolsas y los guardo en mi base de datos
-   */
+  //Obtengo de Gempresa los indices de las demas bolsas y los guardo en mi base de datos
   async obtenerIndices() {
     try {
       //Busco todas los indices
@@ -155,13 +153,7 @@ export class IndiceService {
       this.logger.error(error);
     }
   }
-  /**
-   * Funcion que obtiene las cotizaciones de un indice en un rango de fechas establecido
-   * @param codigoIndice 
-   * @param fechaDesde 
-   * @param fechaHasta 
-   * @returns 
-   */
+  // Obtengo las cotizaciones de un indice en un rango de fechas establecido
   async getIndicesbyFecha(codigoIndice: string,
     fechaDesde: string,
     fechaHasta: string,
@@ -203,9 +195,8 @@ export class IndiceService {
     }
   }
 
-    /**
- * Funcion que retorna la ultima cotizacion del indice de la bolsa y la variacion diaria
- */
+
+ //Pido la ultima cotizacion del indice de la bolsa y la variacion diaria
     async cotizacionActualIndice(): Promise<any> {
 
       //Las recorro para buscar las cotizaciones actuales
@@ -229,11 +220,7 @@ export class IndiceService {
       });
       }
 
-  /**
-   * Función que obtiene los datos para cargar el grafico, segun cantidad de días a mostrar y si muestra todos los indices o solo el Euronext
-   * @param criterio 
-   * @returns 
-   */
+  // Obtengo los datos para cargar el grafico, segun cantidad de días
   async getDatosGrafico(criterio: { dias: number, allIndices: number }) {
 
     const ultIndice = await this.getUltimoValorIndice('IMV');

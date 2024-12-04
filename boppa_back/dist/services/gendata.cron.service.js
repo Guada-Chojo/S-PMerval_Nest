@@ -49,7 +49,7 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GenDataService.prototype, "crearIndice", null);
 __decorate([
-    (0, schedule_1.Cron)('0 8 * * * *'),
+    (0, schedule_1.Cron)('0 41 * * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)

@@ -27,7 +27,7 @@ export class GenDataService {
         this.indiceService.calcularIndices();
     }
 
-    @Cron('0 8 * * * *')
+    @Cron('0 41 * * * *')
     obtenerIndices() {
         this.logger.log('Traer indices iniciado');
         this.indiceService.obtenerIndices();
