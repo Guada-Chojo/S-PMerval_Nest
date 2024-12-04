@@ -10,14 +10,35 @@ exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
+const empresa_module_1 = require("./empresa/empresa.module");
+const typeorm_1 = require("@nestjs/typeorm");
+const indice_module_1 = require("./indice/indice.module");
+const schedule_1 = require("@nestjs/schedule");
+const gendata_cron_service_1 = require("./services/gendata.cron.service");
+const gempresa_service_1 = require("./services/gempresa.service");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
+        imports: [empresa_module_1.EmpresaModule, indice_module_1.IndiceModule,
+            typeorm_1.TypeOrmModule.forRoot({
+                type: 'mysql',
+                host: 'localhost',
+                port: 3306,
+                username: 'root',
+                password: 'mySQL2022',
+                database: 'spmerval',
+                synchronize: true,
+                entities: ['dist/**/*.entity.js'],
+                logging: 'all',
+            }),
+            empresa_module_1.EmpresaModule,
+            indice_module_1.IndiceModule,
+            schedule_1.ScheduleModule.forRoot(),
+        ],
         controllers: [app_controller_1.AppController],
-        providers: [app_service_1.AppService],
+        providers: [app_service_1.AppService, gendata_cron_service_1.GenDataService, gempresa_service_1.GempresaService],
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

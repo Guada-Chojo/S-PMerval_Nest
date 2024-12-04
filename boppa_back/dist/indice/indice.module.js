@@ -10,10 +10,10 @@ exports.IndiceModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const indice_entity_1 = require("./entities/indice.entity");
-const cotizacion_entity_1 = require("src/empresa/entities/cotizacion.entity");
+const cotizacion_entity_1 = require("../empresa/entities/cotizacion.entity");
 const indice_service_1 = require("./indice.service");
 const indice_controller_1 = require("./indice.controller");
-const gempresa_service_1 = require("src/services/gempresa.service");
+const gempresa_service_1 = require("../services/gempresa.service");
 let IndiceModule = class IndiceModule {
 };
 exports.IndiceModule = IndiceModule;

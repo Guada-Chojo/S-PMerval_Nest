@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EmpresaController = void 0;
 const common_1 = require("@nestjs/common");
 const empresa_service_1 = require("./empresa.service");
-const gempresa_service_1 = require("src/services/gempresa.service");
+const gempresa_service_1 = require("../services/gempresa.service");
 let EmpresaController = class EmpresaController {
     constructor(empresaService, gempresaService) {
         this.empresaService = empresaService;

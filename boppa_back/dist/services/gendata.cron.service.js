@@ -13,8 +13,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.GenDataService = void 0;
 const common_1 = require("@nestjs/common");
 const schedule_1 = require("@nestjs/schedule");
-const empresa_service_1 = require("src/empresa/empresa.service");
-const indice_service_1 = require("src/indice/indice.service");
+const empresa_service_1 = require("../empresa/empresa.service");
+const indice_service_1 = require("../indice/indice.service");
 let GenDataService = GenDataService_1 = class GenDataService {
     constructor(empresaService, indiceService) {
         this.empresaService = empresaService;

@@ -18,9 +18,9 @@ const typeorm_1 = require("@nestjs/typeorm");
 const indice_entity_1 = require("./entities/indice.entity");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("typeorm");
-const cotizacion_entity_1 = require("src/empresa/entities/cotizacion.entity");
-const gempresa_service_1 = require("src/services/gempresa.service");
-const dateUtils_1 = require("src/utils/dateUtils");
+const cotizacion_entity_1 = require("../empresa/entities/cotizacion.entity");
+const gempresa_service_1 = require("../services/gempresa.service");
+const dateUtils_1 = require("../utils/dateUtils");
 const momentTZ = require("moment-timezone");
 let IndiceService = IndiceService_1 = class IndiceService {
     constructor(indiceRepository, cotizacionRepository, gempresaService) {

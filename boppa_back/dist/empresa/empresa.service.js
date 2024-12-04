@@ -19,8 +19,8 @@ const typeorm_1 = require("@nestjs/typeorm");
 const typeorm_2 = require("typeorm");
 const empresa_entity_1 = require("./entities/empresa.entity");
 const cotizacion_entity_1 = require("./entities/cotizacion.entity");
-const gempresa_service_1 = require("src/services/gempresa.service");
-const dateUtils_1 = require("src/utils/dateUtils");
+const gempresa_service_1 = require("../services/gempresa.service");
+const dateUtils_1 = require("../utils/dateUtils");
 const momentTZ = require("moment-timezone");
 let EmpresaService = EmpresaService_1 = class EmpresaService {
     constructor(empresaRepository, cotizacionRepository, gempresaService) {

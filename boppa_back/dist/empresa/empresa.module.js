@@ -13,7 +13,7 @@ const cotizacion_entity_1 = require("./entities/cotizacion.entity");
 const empresa_controller_1 = require("./empresa.controller");
 const empresa_service_1 = require("./empresa.service");
 const empresa_entity_1 = require("./entities/empresa.entity");
-const gempresa_service_1 = require("src/services/gempresa.service");
+const gempresa_service_1 = require("../services/gempresa.service");
 let EmpresaModule = class EmpresaModule {
 };
 exports.EmpresaModule = EmpresaModule;
