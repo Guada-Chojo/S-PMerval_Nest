@@ -1,7 +1,7 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Indice } from "./entities/indice.entity";
 import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
-import { Between, FindManyOptions, Repository } from "typeorm";
+import { Between, FindManyOptions, Not, Repository } from "typeorm";
 import { Cotizacion } from "src/empresa/entities/cotizacion.entity";
 import { GempresaService } from "src/services/gempresa.service";
 import { IIndice } from "./model/IIndice";
@@ -203,16 +203,45 @@ export class IndiceService {
     }
   }
 
+    /**
+ * Funcion que retorna la ultima cotizacion del indice de la bolsa y la variacion diaria
+ */
+    async cotizacionActualIndice(): Promise<any> {
+
+      //Las recorro para buscar las cotizaciones actuales
+      const ultimaCot = await this.getUltimoValorIndice('IMV');
+  
+      //Busco la cotizacion de cierre anterior
+      const criterio: FindManyOptions<Indice> = {
+        where: { codigoIndice: 'IMV' , hora: '15:00', fecha: Not(ultimaCot.fecha) },
+        order: {
+          fecha: "DESC"
+        },
+        take: 1,
+      };
+      const cotAnterior: Indice[] = await this.indiceRepository.find(criterio);
+  
+      const variacion = Number(((ultimaCot.valorIndice - cotAnterior[0].valorIndice) / cotAnterior[0].valorIndice * 100).toFixed(2));
+      return ({
+        codigoIndice: 'N100',
+        ultimaCot: ultimaCot.valorIndice,
+        variacion: variacion
+      });
+      }
+
   /**
    * Función que obtiene los datos para cargar el grafico, segun cantidad de días a mostrar y si muestra todos los indices o solo el Euronext
    * @param criterio 
    * @returns 
    */
   async getDatosGrafico(criterio: { dias: number, allIndices: number }) {
-    const fechaDesde = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').add(-criterio.dias, 'days').toISOString().substring(0, 16);
-    const fechaHasta = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').toISOString().substring(0, 16);
 
-    let codIndices: IIndice[] = [];
+    const ultIndice = await this.getUltimoValorIndice('IMV');
+    const fechaHasta = `${ultIndice.fecha}T${ultIndice.hora}`
+    const fechaDesde = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').add(-criterio.dias, 'days').toISOString().substring(0, 16);
+    /* const fechaHasta = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').toISOString().substring(0, 16); */
+
+    let codIndices: any[] = [];
 
     if (criterio.allIndices == 1) {
       codIndices = await this.gempresaService.getIndices();
@@ -223,7 +252,8 @@ export class IndiceService {
     const indices = codIndices.filter((indice:any) => indice.code);
 
     const cotizaciones = indices.map(async indice => {
-      return await this.getIndicesbyFecha(indice.codigoIndice, fechaDesde, fechaHasta);
+      const datosIndice = await this.getIndicesbyFecha(indice.code, fechaDesde, fechaHasta);
+      return datosIndice;
     });
     const datos = await Promise.all(cotizaciones);
     const datosFiltrados = datos.filter(dataset => dataset.length != 0)
@@ -231,4 +261,6 @@ export class IndiceService {
     
     return datosFiltrados;
   }
+
+
 }

@@ -37,19 +37,19 @@ let GenDataService = GenDataService_1 = class GenDataService {
 };
 exports.GenDataService = GenDataService;
 __decorate([
-    (0, schedule_1.Cron)('0 29 * * * *'),
+    (0, schedule_1.Cron)('0 6 * * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], GenDataService.prototype, "obtenerDatos", null);
 __decorate([
-    (0, schedule_1.Cron)('0 46 * * * *'),
+    (0, schedule_1.Cron)('0 7 * * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], GenDataService.prototype, "crearIndice", null);
 __decorate([
-    (0, schedule_1.Cron)('0 20 * * * *'),
+    (0, schedule_1.Cron)('0 8 * * * *'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)

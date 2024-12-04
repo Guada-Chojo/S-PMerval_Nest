@@ -76,7 +76,7 @@ let EmpresaService = EmpresaService_1 = class EmpresaService {
             else {
                 fechaDesde = ultimaCot.fecha + 'T' + ultimaCot.hora;
             }
-            fechaDesde = momentTZ.tz(fechaDesde, process.env.TIME_ZONE).utc().add(1, 'hour').toISOString().substring(0, 16);
+            fechaDesde = momentTZ.tz(fechaDesde, 'America/Argentina/Buenos_Aires').utc().add(1, 'hour').toISOString().substring(0, 16);
             const fechaHasta = (new Date()).toISOString().substring(0, 16);
             const cotizaciones = await this.gempresaService.getCotizaciones(empresa.codEmpresa, fechaDesde, fechaHasta);
             const cotizacionesValidas = cotizaciones.filter((cot) => {

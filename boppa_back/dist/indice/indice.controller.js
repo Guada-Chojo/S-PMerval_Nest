@@ -19,6 +19,9 @@ let IndiceController = class IndiceController {
     constructor(indiceService) {
         this.indiceService = indiceService;
     }
+    async getCotizacionActual() {
+        return await this.indiceService.cotizacionActualIndice();
+    }
     async getCotizaciones(dias, allIndices) {
         return await this.indiceService.getDatosGrafico({ dias: dias, allIndices: allIndices });
     }
@@ -27,6 +30,12 @@ let IndiceController = class IndiceController {
     }
 };
 exports.IndiceController = IndiceController;
+__decorate([
+    (0, common_1.Get)('/cotizacionActual'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], IndiceController.prototype, "getCotizacionActual", null);
 __decorate([
     (0, common_1.Get)('/getCotizaciones'),
     __param(0, (0, common_1.Query)('dias')),

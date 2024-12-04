@@ -6,6 +6,11 @@ import { Indice } from "./entities/indice.entity";
 export class IndiceController {
   constructor(private readonly indiceService: IndiceService) {}
 
+  @Get('/cotizacionActual')
+  async getCotizacionActual(): Promise<any[]> {
+    return await this.indiceService.cotizacionActualIndice();
+  }
+
   @Get('/getCotizaciones')
   async getCotizaciones(
     @Query('dias') dias: number,

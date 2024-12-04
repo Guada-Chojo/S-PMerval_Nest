@@ -78,7 +78,7 @@ export class EmpresaService {
       }
 
       //La fecha desde será la fecha y hora de la ult cotizacion convertida a UTC mas una hora (en este caso vuelve a quedar la misma fecha desde porq Amsterdam es UTC+1)
-      fechaDesde = momentTZ.tz(fechaDesde,process.env.TIME_ZONE).utc().add(1,'hour').toISOString().substring(0,16);
+      fechaDesde = momentTZ.tz(fechaDesde,'America/Argentina/Buenos_Aires').utc().add(1,'hour').toISOString().substring(0,16);
 
       //Fecha Hasta es este momento
       const fechaHasta = (new Date()).toISOString().substring(0, 16);

@@ -165,9 +165,27 @@ let IndiceService = IndiceService_1 = class IndiceService {
             this.logger.error(error);
         }
     }
+    async cotizacionActualIndice() {
+        const ultimaCot = await this.getUltimoValorIndice('IMV');
+        const criterio = {
+            where: { codigoIndice: 'IMV', hora: '15:00', fecha: (0, typeorm_2.Not)(ultimaCot.fecha) },
+            order: {
+                fecha: "DESC"
+            },
+            take: 1,
+        };
+        const cotAnterior = await this.indiceRepository.find(criterio);
+        const variacion = Number(((ultimaCot.valorIndice - cotAnterior[0].valorIndice) / cotAnterior[0].valorIndice * 100).toFixed(2));
+        return ({
+            codigoIndice: 'N100',
+            ultimaCot: ultimaCot.valorIndice,
+            variacion: variacion
+        });
+    }
     async getDatosGrafico(criterio) {
+        const ultIndice = await this.getUltimoValorIndice('IMV');
+        const fechaHasta = `${ultIndice.fecha}T${ultIndice.hora}`;
         const fechaDesde = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').add(-criterio.dias, 'days').toISOString().substring(0, 16);
-        const fechaHasta = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').toISOString().substring(0, 16);
         let codIndices = [];
         if (criterio.allIndices == 1) {
             codIndices = await this.gempresaService.getIndices();
@@ -177,7 +195,8 @@ let IndiceService = IndiceService_1 = class IndiceService {
         }
         const indices = codIndices.filter((indice) => indice.code);
         const cotizaciones = indices.map(async (indice) => {
-            return await this.getIndicesbyFecha(indice.codigoIndice, fechaDesde, fechaHasta);
+            const datosIndice = await this.getIndicesbyFecha(indice.code, fechaDesde, fechaHasta);
+            return datosIndice;
         });
         const datos = await Promise.all(cotizaciones);
         const datosFiltrados = datos.filter(dataset => dataset.length != 0);

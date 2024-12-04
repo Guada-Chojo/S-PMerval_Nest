@@ -12,6 +12,7 @@ export declare class IndiceService {
     getUltimoValorIndice(codigoIndice: string): Promise<Indice>;
     obtenerIndices(): Promise<void>;
     getIndicesbyFecha(codigoIndice: string, fechaDesde: string, fechaHasta: string): Promise<Indice[]>;
+    cotizacionActualIndice(): Promise<any>;
     getDatosGrafico(criterio: {
         dias: number;
         allIndices: number;
