@@ -200,7 +200,16 @@ export class IndiceService {
     async cotizacionActualIndice(): Promise<any> {
 
       //Las recorro para buscar las cotizaciones actuales
-      const ultimaCot = await this.getUltimoValorIndice('IMV');
+      let ultimaCot = await this.getUltimoValorIndice('IMV');
+      if (!ultimaCot) {
+        ultimaCot = {
+          id: -1,
+          hora: '23:00',
+          fecha:'2023-12-31',
+          codigoIndice: 'IMV',
+          valorIndice: 0,
+        }
+      }
   
       //Busco la cotizacion de cierre anterior
       const criterio: FindManyOptions<Indice> = {
@@ -210,11 +219,11 @@ export class IndiceService {
         },
         take: 1,
       };
-      const cotAnterior: Indice[] = await this.indiceRepository.find(criterio);
+      let cotAnterior: Indice[] = await this.indiceRepository.find(criterio);
   
       const variacion = Number(((ultimaCot.valorIndice - cotAnterior[0].valorIndice) / cotAnterior[0].valorIndice * 100).toFixed(2));
       return ({
-        codigoIndice: 'N100',
+        codigoIndice: 'IMV',
         ultimaCot: ultimaCot.valorIndice,
         variacion: variacion
       });
@@ -224,6 +233,7 @@ export class IndiceService {
   async getDatosGrafico(criterio: { dias: number, allIndices: number }) {
 
     const ultIndice = await this.getUltimoValorIndice('IMV');
+
     const fechaHasta = `${ultIndice.fecha}T${ultIndice.hora}`
     const fechaDesde = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').add(-criterio.dias, 'days').toISOString().substring(0, 16);
     /* const fechaHasta = momentTZ.tz(new Date(), 'America/Argentina/Buenos_Aires').toISOString().substring(0, 16); */
